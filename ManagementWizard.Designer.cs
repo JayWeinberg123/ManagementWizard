@@ -30,58 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagementWizard));
-            this.BtnCamIp = new System.Windows.Forms.Button();
-            this.BtnClearCache = new System.Windows.Forms.Button();
-            this.BtnFenoxConfig = new System.Windows.Forms.Button();
-            this.IisReset = new System.Windows.Forms.Button();
             this.NotifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.IisReset = new System.Windows.Forms.Button();
+            this.BtnFenoxConfig = new System.Windows.Forms.Button();
+            this.BtnClearCache = new System.Windows.Forms.Button();
+            this.BtnCamIp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // BtnCamIp
-            // 
-            this.BtnCamIp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnCamIp.Location = new System.Drawing.Point(114, 212);
-            this.BtnCamIp.Name = "BtnCamIp";
-            this.BtnCamIp.Size = new System.Drawing.Size(161, 44);
-            this.BtnCamIp.TabIndex = 0;
-            this.BtnCamIp.Text = "Configurar Host";
-            this.BtnCamIp.UseVisualStyleBackColor = true;
-            this.BtnCamIp.Click += new System.EventHandler(this.BtnCamIp_Click);
-            // 
-            // BtnClearCache
-            // 
-            this.BtnClearCache.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnClearCache.Location = new System.Drawing.Point(114, 162);
-            this.BtnClearCache.Name = "BtnClearCache";
-            this.BtnClearCache.Size = new System.Drawing.Size(161, 44);
-            this.BtnClearCache.TabIndex = 1;
-            this.BtnClearCache.Text = "Limpeza de Cache TCP/IP";
-            this.BtnClearCache.UseVisualStyleBackColor = true;
-            this.BtnClearCache.Click += new System.EventHandler(this.BtnClearCache_Click);
-            // 
-            // BtnFenoxConfig
-            // 
-            this.BtnFenoxConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnFenoxConfig.Location = new System.Drawing.Point(114, 262);
-            this.BtnFenoxConfig.Name = "BtnFenoxConfig";
-            this.BtnFenoxConfig.Size = new System.Drawing.Size(161, 44);
-            this.BtnFenoxConfig.TabIndex = 2;
-            this.BtnFenoxConfig.Text = "Configurar IP Servidor";
-            this.BtnFenoxConfig.UseVisualStyleBackColor = true;
-            this.BtnFenoxConfig.Click += new System.EventHandler(this.BtnFenoxConfig_Click);
-            // 
-            // IisReset
-            // 
-            this.IisReset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.IisReset.Location = new System.Drawing.Point(114, 312);
-            this.IisReset.Name = "IisReset";
-            this.IisReset.Size = new System.Drawing.Size(161, 44);
-            this.IisReset.TabIndex = 3;
-            this.IisReset.Text = "Reiniciar IIs";
-            this.IisReset.UseVisualStyleBackColor = true;
-            this.IisReset.Click += new System.EventHandler(this.IisReset_Click);
             // 
             // NotifyIcon2
             // 
@@ -93,25 +49,85 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(114, 34);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 40);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 122);
+            this.pictureBox1.Size = new System.Drawing.Size(372, 148);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
+            // 
+            // IisReset
+            // 
+            this.IisReset.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonResetIIS;
+            this.IisReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.IisReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IisReset.FlatAppearance.BorderSize = 0;
+            this.IisReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IisReset.Location = new System.Drawing.Point(82, 380);
+            this.IisReset.Name = "IisReset";
+            this.IisReset.Size = new System.Drawing.Size(242, 56);
+            this.IisReset.TabIndex = 3;
+            this.IisReset.UseVisualStyleBackColor = true;
+            this.IisReset.Click += new System.EventHandler(this.IisReset_Click);
+            // 
+            // BtnFenoxConfig
+            // 
+            this.BtnFenoxConfig.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonIPServer;
+            this.BtnFenoxConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnFenoxConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnFenoxConfig.FlatAppearance.BorderSize = 0;
+            this.BtnFenoxConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnFenoxConfig.Location = new System.Drawing.Point(82, 318);
+            this.BtnFenoxConfig.Name = "BtnFenoxConfig";
+            this.BtnFenoxConfig.Size = new System.Drawing.Size(242, 56);
+            this.BtnFenoxConfig.TabIndex = 2;
+            this.BtnFenoxConfig.UseVisualStyleBackColor = true;
+            this.BtnFenoxConfig.Click += new System.EventHandler(this.BtnFenoxConfig_Click);
+            // 
+            // BtnClearCache
+            // 
+            this.BtnClearCache.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonClearCache;
+            this.BtnClearCache.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnClearCache.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnClearCache.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BtnClearCache.FlatAppearance.BorderSize = 0;
+            this.BtnClearCache.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.BtnClearCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.BtnClearCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClearCache.Location = new System.Drawing.Point(82, 194);
+            this.BtnClearCache.Name = "BtnClearCache";
+            this.BtnClearCache.Size = new System.Drawing.Size(242, 56);
+            this.BtnClearCache.TabIndex = 1;
+            this.BtnClearCache.UseVisualStyleBackColor = true;
+            this.BtnClearCache.Click += new System.EventHandler(this.BtnClearCache_Click);
+            // 
+            // BtnCamIp
+            // 
+            this.BtnCamIp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnCamIp.BackgroundImage")));
+            this.BtnCamIp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnCamIp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnCamIp.FlatAppearance.BorderSize = 0;
+            this.BtnCamIp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCamIp.Location = new System.Drawing.Point(82, 256);
+            this.BtnCamIp.Name = "BtnCamIp";
+            this.BtnCamIp.Size = new System.Drawing.Size(242, 56);
+            this.BtnCamIp.TabIndex = 0;
+            this.BtnCamIp.UseVisualStyleBackColor = true;
+            this.BtnCamIp.Click += new System.EventHandler(this.BtnCamIp_Click);
             // 
             // ManagementWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(403, 368);
+            this.ClientSize = new System.Drawing.Size(400, 481);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.IisReset);
             this.Controls.Add(this.BtnFenoxConfig);
             this.Controls.Add(this.BtnClearCache);
             this.Controls.Add(this.BtnCamIp);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ManagementWizard";

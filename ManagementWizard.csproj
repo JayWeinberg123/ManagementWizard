@@ -61,7 +61,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Fenox-Icon.ico</ApplicationIcon>
+    <ApplicationIcon>PART 3.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -114,8 +114,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fenox-Icon.ico" />
-    <Content Include="Resources\Fenox Icon.jpg" />
-    <EmbeddedResource Include="Resources\Fenox-Icon.ico" />
+    <None Include="Resources\ButtonClearCache.png" />
+    <Content Include="Resources\ButtonIPServer.png" />
+    <None Include="Resources\ButtonResetIIS.png" />
+    <Content Include="Resources\LogoBar.ico" />
+    <None Include="Resources\1 1.png" />
+    <None Include="Resources\2 1.png" />
+    <None Include="Resources\4.png" />
+    <Content Include="PART 3.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

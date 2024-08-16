@@ -2,20 +2,29 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace ManagementWizard
 {
     public partial class ManagementWizard : Form
     {
+        public const int NonClientLeftButtonClick = 0xA1;
+        public const int ClickOnTitleBar = 0x2;
 
+        [DllImport("User32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("User32.dll")]
+        public static extern bool SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         public ManagementWizard()
         {
             InitializeComponent();
 
-            string caminhoRelativo = @"Resources\Fenox-Icon.ico";
+            string caminhoRelativo = @"Resources\LogoBar.ico";
             string caminhoAbsoluto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, caminhoRelativo);
 
             NotifyIcon2.Icon = new Icon(caminhoAbsoluto);
@@ -46,13 +55,15 @@ namespace ManagementWizard
         {
             try
             {
+                string command = @"ipconfig /flushdns
+                                   ipconfig /renew";
 
                 ProcessStartInfo process = new ProcessStartInfo()
                 {
                     FileName = "powershell.exe",
-                    Arguments = "/c ipconfig /flushdns",
+                    Arguments = $"/c {command}",
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
+                    RedirectStandardOutput = false,
                     CreateNoWindow = false,
                     Verb = "runas"
                 };
@@ -61,7 +72,6 @@ namespace ManagementWizard
                 {
                     processing.WaitForExit();
 
-                    Thread.Sleep(1000);
                     if (processing.ExitCode == 0)
                     {
                         MessageBox.Show("Limpeza e reconexão feitos com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -84,36 +94,47 @@ namespace ManagementWizard
         {
             try
             {
+                string script = @"
+                    $filePath = 'C:\Program Files (x86)\Fenox V1.0\Fnx64bits.exe.config';
+                    $textoNovo = (ipconfig | Select-String -Pattern 'IPv4' | ForEach-Object { $_ -replace '.*:\s*', '' }).Trim();
+                    netsh http add iplisten ipaddress=0.0.0.0;
+                    netsh http add iplisten $textoNovo;
+                    Write-Output 'Endereço IP Capturado: $textoNovo';
+                    $conteudo = Get-Content $filePath -Raw;
+                    $pattern = '(?<=<endpoint address=""http://)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?=:)';
+                    $conteudo = $conteudo -replace $pattern, $textoNovo;
+                    Set-Content $filePath $conteudo;
+                    Write-Output 'Substituição concluída. Endereços IP atualizados para $textoNovo.';
+                    ipconfig /renew;
+                    ipconfig /flushdns;
+                    iisreset;
+                ";
 
-                string filePath = @"C:\Program Files (x86)\Fenox V1.0\Fnx64bits.exe.config";
-
-                string command = $@"Start-Process notepad.exe -ArgumentList '{filePath}' -Verb RunAs";
+                string encodedScript = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(script));
 
                 ProcessStartInfo process = new ProcessStartInfo
                 {
-                    Verb = "runas",
                     FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{command}\"",
-                    UseShellExecute = false,
-                    CreateNoWindow = true
+                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encodedScript}",
+                    Verb = "runas",
+                    UseShellExecute = true,
+                    CreateNoWindow = false,
+                    WindowStyle = ProcessWindowStyle.Normal
                 };
 
                 using (Process processing = Process.Start(process))
                 {
                     processing.WaitForExit();
 
-                    Thread.Sleep(1000);
-
                     if (processing.ExitCode == 0)
                     {
-
+                        MessageBox.Show("Script executado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Erro ao tentar abrir o arquivo, verifique o mesmo!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Erro ao executar o script!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-;
             }
             catch (Exception ex)
             {
@@ -125,7 +146,6 @@ namespace ManagementWizard
         {
             try
             {
-
                 ProcessStartInfo process = new ProcessStartInfo()
                 {
                     Verb = "runas",
@@ -133,7 +153,6 @@ namespace ManagementWizard
                     Arguments = "/c powershell -Command \"Start-Process iisreset -Verb runAs\"",
                     UseShellExecute = false,
                     CreateNoWindow = false
-
                 };
 
                 using (Process processing = Process.Start(process))
@@ -162,6 +181,7 @@ namespace ManagementWizard
             this.WindowState = FormWindowState.Normal;
             NotifyIcon2.Visible = false;
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -179,18 +199,22 @@ namespace ManagementWizard
             {
                 Dock = DockStyle.Top,
                 Height = 30,
-                BackColor = Color.DodgerBlue,
+                BackColor = Color.FromArgb(255, 1, 66, 117),
             };
             this.Controls.Add(barraTitulo);
 
+            
+            barraTitulo.MouseDown += barraTitulo_MouseDown;
+
             Button btnMinimizar = new Button
             {
-                Text = "_",
+                Text = "−",
                 ForeColor = Color.White,
-                BackColor = Color.DodgerBlue,
+                BackColor = Color.FromArgb(255, 1, 66, 117),
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(30, 30),
-                Dock = DockStyle.Right
+                Dock = DockStyle.Right,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
             };
             btnMinimizar.FlatAppearance.BorderSize = 0;
             btnMinimizar.Click += (s, args) => { this.WindowState = FormWindowState.Minimized; };
@@ -200,14 +224,83 @@ namespace ManagementWizard
             {
                 Text = "X",
                 ForeColor = Color.Red,
-                BackColor = Color.DodgerBlue,
+                BackColor = Color.FromArgb(255, 1, 66, 117),
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(30, 30),
-                Dock = DockStyle.Right
+                Dock = DockStyle.Right,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
             };
             btnFechar.FlatAppearance.BorderSize = 0;
             btnFechar.Click += (s, args) => { this.Close(); };
             barraTitulo.Controls.Add(btnFechar);
+
+            PictureBox logoIcon = new PictureBox
+            {
+                ImageLocation = @"Resources\Fenox-icon.png",
+                SizeMode = PictureBoxSizeMode.AutoSize,
+                Size = new Size(30, 30),
+                Dock = DockStyle.Left
+            };
+            barraTitulo.Controls.Add(logoIcon);
+
+            
+            this.Region = new Region(RoundedRectangle(new Rectangle(0, 0, this.Width, this.Height), 5));
+
+           
+            this.Paint += ManagementWizard_Paint;
+        }
+
+        private void ManagementWizard_Paint(object sender, PaintEventArgs e)
+        {
+
+            int borderWidth = 2;
+
+            using (Pen blackPen = new Pen(Color.Black, borderWidth))
+            {
+               
+                e.Graphics.DrawRectangle(blackPen, new Rectangle(0, 0, this.Width - borderWidth, this.Height - borderWidth));
+            }
+        }
+
+        private void barraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, NonClientLeftButtonClick, ClickOnTitleBar, 0);
+            }
+        }
+
+        private GraphicsPath RoundedRectangle(Rectangle bounds, int radius)
+        {
+            int diameter = radius * 2;
+            Size size = new Size(diameter, diameter);
+            Rectangle arc = new Rectangle(bounds.Location, size);
+            GraphicsPath path = new GraphicsPath();
+
+            if (radius == 0)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+             
+            path.AddArc(arc, 180, 90);
+
+              
+            arc.X = bounds.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            
+            arc.Y = bounds.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            
+            arc.X = bounds.Left;
+            path.AddArc(arc, 90, 90);
+
+            path.CloseFigure();
+            return path;
         }
     }
 }
