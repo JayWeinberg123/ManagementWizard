@@ -27,11 +27,37 @@ namespace ManagementWizard
             string caminhoRelativo = @"Resources\LogoBar.ico";
             string caminhoAbsoluto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, caminhoRelativo);
 
+            BtnClearCache.FlatAppearance.BorderSize = 0;
+            BtnClearCache.MouseEnter += BtnClearCache_MouseEnter;
+            BtnClearCache.MouseLeave += BtnClearCache_MouseLeave;
+
+            BtnCamIp.FlatAppearance.BorderSize = 0;
+            BtnCamIp.MouseEnter += BtnCamIp_MouseEnter;
+            BtnCamIp.MouseLeave += BtnCamIp_MouseLeave;
+
+            BtnFenoxConfig.FlatAppearance.BorderSize = 0;
+            BtnFenoxConfig.MouseEnter += BtnFenoxConfig_MouseEnter;
+            BtnFenoxConfig.MouseLeave += BtnFenoxConfig_MouseLeave;
+
+            IisReset.FlatAppearance.BorderSize = 0;
+            IisReset.MouseEnter += IisReset_MouseEnter;
+            IisReset.MouseLeave += IisReset_MouseLeave;
+
             NotifyIcon2.Icon = new Icon(caminhoAbsoluto);
             NotifyIcon2.Visible = true;
             NotifyIcon2.Text = "Management Wizard";
 
             NotifyIcon2.MouseDoubleClick += notifyIcon2_MouseDoubleClick;
+        }
+
+        private void IisReset_MouseEnter1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BtnCamIp_MouseEnter1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void BtnCamIp_Click(object sender, EventArgs e)
@@ -99,12 +125,12 @@ namespace ManagementWizard
                     $textoNovo = (ipconfig | Select-String -Pattern 'IPv4' | ForEach-Object { $_ -replace '.*:\s*', '' }).Trim();
                     netsh http add iplisten ipaddress=0.0.0.0;
                     netsh http add iplisten $textoNovo;
-                    Write-Output 'Endereço IP Capturado: $textoNovo';
+                    Write-Output 'Endereço IP Capturado.';
                     $conteudo = Get-Content $filePath -Raw;
                     $pattern = '(?<=<endpoint address=""http://)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?=:)';
                     $conteudo = $conteudo -replace $pattern, $textoNovo;
                     Set-Content $filePath $conteudo;
-                    Write-Output 'Substituição concluída. Endereços IP atualizados para $textoNovo.';
+                    Write-Output 'Substituição concluída. Endereços IP atualizados.';
                     ipconfig /renew;
                     ipconfig /flushdns;
                     iisreset;
@@ -255,7 +281,7 @@ namespace ManagementWizard
 
             int borderWidth = 2;
 
-            using (Pen blackPen = new Pen(Color.Black, borderWidth))
+            using (Pen blackPen = new Pen(Color.DarkGray, borderWidth))
             {
                
                 e.Graphics.DrawRectangle(blackPen, new Rectangle(0, 0, this.Width - borderWidth, this.Height - borderWidth));
@@ -301,6 +327,90 @@ namespace ManagementWizard
 
             path.CloseFigure();
             return path;
+        }
+
+        private void BtnClearCache_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null) 
+            {
+                btn.Size = new Size(btn.Width + 10, btn.Height + 10);
+                btn.Location = new Point(btn.Location.X - 5, btn.Location.Y - 5);
+                btn.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void BtnClearCache_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width - 10, btn.Height - 10);
+                btn.Location = new Point(btn.Location.X + 5, btn.Location.Y + 5);
+            }
+        }
+
+        private void BtnCamIp_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width + 10, btn.Height + 10);
+                btn.Location = new Point(btn.Location.X - 5, btn.Location.Y - 5);
+                btn.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void BtnCamIp_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width - 10, btn.Height - 10);
+                btn.Location = new Point(btn.Location.X + 5, btn.Location.Y + 5);
+            }
+        }
+
+        private void BtnFenoxConfig_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width + 10, btn.Height + 10);
+                btn.Location = new Point(btn.Location.X - 5, btn.Location.Y - 5);
+                btn.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void BtnFenoxConfig_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width - 10, btn.Height - 10);
+                btn.Location = new Point(btn.Location.X + 5, btn.Location.Y + 5);
+            }
+        }
+
+        private void IisReset_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width + 10, btn.Height + 10);
+                btn.Location = new Point(btn.Location.X - 5, btn.Location.Y - 5);
+                btn.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void IisReset_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                btn.Size = new Size(btn.Width - 10, btn.Height - 10);
+                btn.Location = new Point(btn.Location.X + 5, btn.Location.Y + 5);
+            }
         }
     }
 }

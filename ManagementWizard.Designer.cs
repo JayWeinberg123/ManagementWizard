@@ -61,7 +61,10 @@
             this.IisReset.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonResetIIS;
             this.IisReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.IisReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IisReset.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.IisReset.FlatAppearance.BorderSize = 0;
+            this.IisReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.IisReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.IisReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IisReset.Location = new System.Drawing.Point(82, 380);
             this.IisReset.Name = "IisReset";
@@ -69,13 +72,18 @@
             this.IisReset.TabIndex = 3;
             this.IisReset.UseVisualStyleBackColor = true;
             this.IisReset.Click += new System.EventHandler(this.IisReset_Click);
+            this.IisReset.MouseEnter += new System.EventHandler(this.IisReset_MouseEnter);
+            this.IisReset.MouseLeave += new System.EventHandler(this.IisReset_MouseLeave);
             // 
             // BtnFenoxConfig
             // 
             this.BtnFenoxConfig.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonIPServer;
             this.BtnFenoxConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnFenoxConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnFenoxConfig.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.BtnFenoxConfig.FlatAppearance.BorderSize = 0;
+            this.BtnFenoxConfig.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.BtnFenoxConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.BtnFenoxConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnFenoxConfig.Location = new System.Drawing.Point(82, 318);
             this.BtnFenoxConfig.Name = "BtnFenoxConfig";
@@ -83,10 +91,12 @@
             this.BtnFenoxConfig.TabIndex = 2;
             this.BtnFenoxConfig.UseVisualStyleBackColor = true;
             this.BtnFenoxConfig.Click += new System.EventHandler(this.BtnFenoxConfig_Click);
+            this.BtnFenoxConfig.MouseEnter += new System.EventHandler(this.BtnFenoxConfig_MouseEnter);
+            this.BtnFenoxConfig.MouseLeave += new System.EventHandler(this.BtnFenoxConfig_MouseLeave);
             // 
             // BtnClearCache
             // 
-            this.BtnClearCache.BackgroundImage = global::ManagementWizard.Properties.Resources.ButtonClearCache;
+            this.BtnClearCache.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnClearCache.BackgroundImage")));
             this.BtnClearCache.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnClearCache.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClearCache.FlatAppearance.BorderColor = System.Drawing.Color.White;
@@ -94,19 +104,25 @@
             this.BtnClearCache.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.BtnClearCache.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.BtnClearCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClearCache.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnClearCache.Location = new System.Drawing.Point(82, 194);
             this.BtnClearCache.Name = "BtnClearCache";
             this.BtnClearCache.Size = new System.Drawing.Size(242, 56);
             this.BtnClearCache.TabIndex = 1;
             this.BtnClearCache.UseVisualStyleBackColor = true;
             this.BtnClearCache.Click += new System.EventHandler(this.BtnClearCache_Click);
+            this.BtnClearCache.MouseEnter += new System.EventHandler(this.BtnClearCache_MouseEnter);
+            this.BtnClearCache.MouseLeave += new System.EventHandler(this.BtnClearCache_MouseLeave);
             // 
             // BtnCamIp
             // 
             this.BtnCamIp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnCamIp.BackgroundImage")));
             this.BtnCamIp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnCamIp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnCamIp.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.BtnCamIp.FlatAppearance.BorderSize = 0;
+            this.BtnCamIp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.BtnCamIp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.BtnCamIp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnCamIp.Location = new System.Drawing.Point(82, 256);
             this.BtnCamIp.Name = "BtnCamIp";
@@ -114,6 +130,8 @@
             this.BtnCamIp.TabIndex = 0;
             this.BtnCamIp.UseVisualStyleBackColor = true;
             this.BtnCamIp.Click += new System.EventHandler(this.BtnCamIp_Click);
+            this.BtnCamIp.MouseEnter += new System.EventHandler(this.BtnCamIp_MouseEnter);
+            this.BtnCamIp.MouseLeave += new System.EventHandler(this.BtnCamIp_MouseLeave);
             // 
             // ManagementWizard
             // 
@@ -121,7 +139,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(400, 481);
+            this.ClientSize = new System.Drawing.Size(400, 456);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.IisReset);
             this.Controls.Add(this.BtnFenoxConfig);
